@@ -1,0 +1,34 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+
+const meta = {
+	description: "Mark Tsai，DevOps 工程師。Kubernetes 維運、CI/CD、架構與可觀測性。",
+	title: "關於",
+};
+---
+
+<PageLayout meta={meta}>
+	<h1 class="title mb-12">關於</h1>
+	<div class="prose prose-cactus max-w-none">
+		<p>
+			我是 Mark Tsai，DevOps 工程師，負責 Kubernetes 維運與疑難排解，也負責 CI/CD、Architecture、Observability
+			的規劃與實作。
+		</p>
+		<p>這個網站存放筆記與技術文章。</p>
+		<ul class="list-inside list-disc" role="list">
+			<li>
+				GitHub：<a
+					class="cactus-link inline-block"
+					href="https://github.com/shuan1026"
+					rel="noreferrer"
+					target="_blank">shuan1026</a
+				>
+			</li>
+			<li>
+				Email：<a class="cactus-link inline-block" href="mailto:mark102555@gmail.com"
+					>mark102555@gmail.com</a
+				>
+			</li>
+		</ul>
+	</div>
+</PageLayout>

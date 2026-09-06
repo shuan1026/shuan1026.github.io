@@ -1,0 +1,54 @@
+name: 部署到 GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時只跑一個部署。不取消進行中的那個，避免半途中斷留下壞掉的站。
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: 建置
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取出原始碼
+        uses: actions/checkout@v7
+
+      - name: 安裝相依、建置並上傳 artifact
+        uses: withastro/action@v6
+        with:
+          path: .
+          node-version: 24
+          # 與 package.json 的 packageManager 欄位一致。
+          # 只寫 "pnpm"（不帶版本）會讓 action 強制用 latest，反而不穩。
+          package-manager: pnpm@11.22.0
+          # Pagefind 的索引必須在 upload-pages-artifact 之前產生，
+          # 所以顯式串上 postbuild，不倚賴 pnpm 是否自動觸發 post* 腳本。
+          # 少了這段，搜尋框開得起來但一筆都找不到，而且不會報錯。
+          build-cmd: pnpm run build && pnpm run postbuild
+        env:
+          # FormattedDate 用 Intl.DateTimeFormat、groupPostsByYear 用
+          # Date.getFullYear()，都跟著執行環境的時區跑。runner 預設 UTC，
+          # 會把 +08:00 的午夜文章印成前一天。
+          TZ: Asia/Taipei
+
+  deploy:
+    name: 部署
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

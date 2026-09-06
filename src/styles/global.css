@@ -1,0 +1,226 @@
+@layer theme, base, pagefind, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* config for tailwindcss-typography plugin */
+@config "../../tailwind.config.ts";
+
+/* use a selector-based strategy for dark mode */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* register custom colour properties */
+@property --color-global-bg {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(98.48% 0 0);
+}
+@property --color-global-text {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(26.99% 0.0096 235.05);
+}
+@property --color-muted {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(44.6% 0.03 256.802);
+}
+@property --color-link {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(55.44% 0.0431 185.69);
+}
+@property --color-accent {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(55.27% 0.195 19.06);
+}
+@property --color-accent-2 {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(18.15% 0 0);
+}
+@property --color-quote {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(55.27% 0.195 19.06);
+}
+
+/* you could refactor below to use light-dark(), depending on your target audience */
+@theme {
+	--color-global-bg: oklch(98.48% 0 0);
+	--color-global-text: oklch(26.99% 0.0096 235.05);
+	--color-muted: oklch(44.6% 0.03 256.802);
+	--color-link: oklch(55.44% 0.0431 185.69);
+	--color-accent: oklch(55.27% 0.195 19.06);
+	--color-accent-2: oklch(18.15% 0 0);
+	--color-quote: oklch(55.27% 0.195 19.06);
+
+	/* 中文字體堆疊。沿用改版前的系統字策略：不掛 web font，避免為了 CJK
+	   字重多載幾 MB。拉丁字仍由前面的介面字負責，只有漢字會落到 PingFang /
+	   Noto Sans TC。--font-mono 也要有 CJK 後備：src/styles/blocks/search.css
+	   的 --pf-font 讀的就是它，Pagefind 搜尋視窗才不會掉字。 */
+	--font-sans:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC",
+		"Microsoft JhengHei", "Helvetica Neue", Arial, sans-serif;
+	--font-mono:
+		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "PingFang TC",
+		"Noto Sans TC", "Courier New", monospace;
+
+	/* 中文正文行距。必須以工具類（leading-cjk）套在 <body> 上：text-base
+	   這類字級工具本身會設 line-height，寫在 @layer base 的規則會被它蓋掉。 */
+	--leading-cjk: 1.75;
+}
+
+@layer base {
+	html {
+		color-scheme: light dark;
+		accent-color: var(--color-accent);
+		scrollbar-gutter: stable;
+
+		&[data-theme="light"] {
+			color-scheme: light;
+		}
+
+		&[data-theme="dark"] {
+			color-scheme: dark;
+			--color-global-bg: oklch(23.64% 0.0045 248);
+			--color-global-text: oklch(83.54% 0 264);
+			--color-muted: oklch(70.7% 0.022 261.325);
+			--color-link: oklch(70.44% 0.1133 349);
+			--color-accent: oklch(70.91% 0.1415 163.7);
+			--color-accent-2: oklch(94.66% 0 0);
+			--color-quote: oklch(94.8% 0.106 136.49);
+		}
+
+		--color-mode-transition-duration: 300ms;
+		--color-mode-transition-easing: ease-in-out;
+
+		transition:
+			--color-global-bg var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-global-text var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-muted var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-link var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-accent var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-accent-2 var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-quote var(--color-mode-transition-duration) var(--color-mode-transition-easing);
+	}
+
+	/* ── 中文排版 ─────────────────────────────────────────────
+	   正文行距由 <body> 的 leading-cjk 工具類負責（見上面的 --leading-cjk）；
+	   漢字沒有小寫字母可辨識，行距要比拉丁文寬。 */
+	:where(h1, h2, h3, h4, h5, h6) {
+		line-height: 1.35;
+		text-wrap: balance;
+	}
+	:where(p, li, blockquote, figcaption, dd) {
+		text-wrap: pretty;
+	}
+	/* 中英混排：長 URL 或識別字溢位時才斷，不硬切單字。
+	   不要改成 word-break: break-all —— 那會把 kubectl、Observability
+	   從中間切開。CJK 的斷行 UAX #14 本來就夠寬鬆，不需要幫忙。 */
+	:where(p, li, td, th, blockquote) {
+		word-break: normal;
+		overflow-wrap: break-word;
+	}
+
+	:target {
+		scroll-margin-block: 5ex;
+	}
+
+	@view-transition {
+		navigation: auto;
+	}
+
+	/* Astro image responsive styles, modified from -> https://docs.astro.build/en/guides/images/#responsive-image-styles */
+	:where([data-astro-image]) {
+		object-fit: var(--fit);
+		object-position: var(--pos);
+	}
+	[data-astro-image="full-width"] {
+		width: 100%;
+	}
+	[data-astro-image="constrained"] {
+		max-width: 100%;
+	}
+}
+
+@layer components {
+	@import "./components/admonition.css";
+	@import "./components/github-card.css";
+
+	.cactus-link {
+		@apply hover:decoration-link underline underline-offset-2 hover:decoration-2;
+	}
+
+	.title {
+		@apply text-accent-2 text-2xl font-semibold;
+	}
+
+	/* 寬表格的捲動容器，由 satteriScrollableTablesPlugin 在建置期產生。
+	   表格自己的 margin 移到容器上，排版才不會多一段空白。 */
+	.table-scroll {
+		@apply my-4 max-w-full overflow-x-auto;
+	}
+	.table-scroll > table {
+		@apply my-0;
+	}
+
+	/* 表格內：說明接在標題下一行，字級縮小、顏色轉淡。
+	   用 em 而非 rem，跟著儲存格字級走。 */
+	.table-scroll small {
+		display: block;
+		margin-top: 0.35em;
+		font-size: 0.875em;
+		font-weight: 400;
+		line-height: 1.6;
+		color: var(--color-muted);
+	}
+
+	/* 日期不要從中間斷開（「2026-09-02」會被拆成三行）。
+	   第一欄不加 nowrap —— repo 名稱撐開後會把狀態欄擠出可視範圍。 */
+	.table-scroll th:last-child,
+	.table-scroll td:last-child {
+		white-space: nowrap;
+	}
+
+	/* 這裡要用 anywhere 而不是 base 層的 break-word：只有 anywhere 會把
+	   斷點納入 min-content 寬度的計算，長識別字（例如
+	   S3MultipartUploadCompleteRequest.getMultipartDataSize）才不會把
+	   欄位撐開、逼出橫向捲軸。代價是這類識別字會被折行。
+	   只套第三欄（Title）—— 全表套用會連 `apache/ozone` 這種短名稱都折斷。 */
+	.table-scroll td:nth-child(3) {
+		overflow-wrap: anywhere;
+	}
+
+
+	/* 狀態徽章：標籤在上、日期在下，包在一個圓角底色裡。
+	   底色用 color-mix 從既有的文字色調出來，深淺主題各自成立，
+	   不需要為它多開一個顏色 token（也就不會出現裸 hex）。 */
+	.table-scroll .status {
+		display: inline-block;
+		padding: 0.3em 0.55em;
+		border-radius: 0.375rem;
+		background: color-mix(in oklab, var(--color-global-text) 8%, transparent);
+		font-weight: 600;
+		line-height: 1.35;
+		white-space: nowrap;
+	}
+	.table-scroll .status small {
+		margin-top: 0.1em;
+		font-weight: 400;
+	}
+}
+
+@utility prose {
+	--tw-prose-body: var(--color-global-text);
+	--tw-prose-bold: var(--color-global-text);
+	--tw-prose-bullets: var(--color-global-text);
+	--tw-prose-code: var(--color-global-text);
+	--tw-prose-headings: var(--color-accent-2);
+	--tw-prose-hr: 0.5px dashed #666;
+	--tw-prose-links: var(--color-global-text);
+	--tw-prose-quotes: var(--color-quote);
+	--tw-prose-th-borders: #666;
+}

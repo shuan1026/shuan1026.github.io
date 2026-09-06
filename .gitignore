@@ -1,0 +1,27 @@
+# 相依與建置產物
+node_modules/
+dist/
+.astro
+.output/
+.cache
+
+# 環境變數
+.env
+.env.production
+.env.*.local
+
+# 記錄檔
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 通用
+.DS_Store
+*.pem
+*.swp
+*~
+
+# 改版前的 Jekyll 站，只作本機參考，不入版控
+# （要保留請用 git add -f legacy/）
+legacy/

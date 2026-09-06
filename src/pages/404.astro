@@ -1,0 +1,19 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+
+const meta = {
+	description: "這個網址找不到對應的頁面。",
+	title: "找不到頁面",
+};
+---
+
+<PageLayout meta={meta}>
+	<h1 class="title mb-12">404｜找不到這個頁面</h1>
+	<p class="mb-8">網址可能已經變更，或這篇文章還沒發布。</p>
+	<ul class="space-y-2" role="list">
+		<li><a class="cactus-link" href="/">回到首頁</a></li>
+		<li><a class="cactus-link" href="/posts/">瀏覽所有文章</a></li>
+		<li><a class="cactus-link" href="/tags/">依標籤瀏覽</a></li>
+		<li><a class="cactus-link" href="/about/">關於我</a></li>
+	</ul>
+</PageLayout>

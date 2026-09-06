@@ -1,0 +1,50 @@
+---
+import { Icon } from "astro-icon/components";
+
+/** 
+	Uses https://www.astroicon.dev/getting-started/
+	Find icons via guide: https://www.astroicon.dev/guides/customization/#open-source-icon-sets
+	Only installed pack is: @iconify-json/mdi
+*/
+const socialLinks: {
+	friendlyName: string;
+	link: string;
+	name: string;
+}[] = [
+	{
+		friendlyName: "Github",
+		link: "https://github.com/shuan1026",
+		name: "mdi:github",
+	},
+	{
+		friendlyName: "Email",
+		link: "mailto:mark102555@gmail.com",
+		name: "mdi:email",
+	},
+];
+---
+
+<div class="flex flex-wrap items-end gap-x-2">
+	<p>在這裡找我</p>
+	<ul class="flex flex-1 items-center gap-x-2 sm:flex-initial">
+		{
+			socialLinks.map(({ friendlyName, link, name }) => {
+				// mailto: 不要開新分頁 —— 交給郵件程式處理，瀏覽器只會留下一個空白分頁。
+				const isExternal = !link.startsWith("mailto:");
+				return (
+					<li class="flex">
+						<a
+							class="hover:text-link inline-block"
+							href={link}
+							rel={isExternal ? "noreferrer" : undefined}
+							target={isExternal ? "_blank" : undefined}
+						>
+							<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
+							<span class="sr-only">{friendlyName}</span>
+						</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</div>

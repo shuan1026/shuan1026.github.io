@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- 給 sharp/librsvg 光柵化用：不能有 <style>、@media 或 <text>。
+       字母用 path outline，顏色用 presentation attribute。
+       兩色對齊 astro.config.ts 的 background_color / theme_color。 -->
+  <rect width="32" height="32" rx="7" fill="#1d1f21"/>
+  <path fill="#2bbc8a" d="M7.6 23.5V8.5h3.9l5 8.2 5-8.2h3.9v15h-3.4V13.9l-4.3 7h-2.4l-4.3-7v9.6z"/>
+</svg>
