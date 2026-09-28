@@ -178,10 +178,14 @@
 		color: var(--color-muted);
 	}
 
+	/* 下面兩條只給 PR 清單表格（apache-ozone-contribution）用，所以用
+	   :has(.status) 限定。一般表格的最後一欄常是整句中文，nowrap 會讓它
+	   一路撐開；第三欄套 anywhere 也會把英文單字從中間折斷。 */
+
 	/* 日期不要從中間斷開（「2026-09-02」會被拆成三行）。
 	   第一欄不加 nowrap —— repo 名稱撐開後會把狀態欄擠出可視範圍。 */
-	.table-scroll th:last-child,
-	.table-scroll td:last-child {
+	.table-scroll:has(.status) th:last-child,
+	.table-scroll:has(.status) td:last-child {
 		white-space: nowrap;
 	}
 
@@ -190,10 +194,9 @@
 	   S3MultipartUploadCompleteRequest.getMultipartDataSize）才不會把
 	   欄位撐開、逼出橫向捲軸。代價是這類識別字會被折行。
 	   只套第三欄（Title）—— 全表套用會連 `apache/ozone` 這種短名稱都折斷。 */
-	.table-scroll td:nth-child(3) {
+	.table-scroll:has(.status) td:nth-child(3) {
 		overflow-wrap: anywhere;
 	}
-
 
 	/* 狀態徽章：標籤在上、日期在下，包在一個圓角底色裡。
 	   底色用 color-mix 從既有的文字色調出來，深淺主題各自成立，
@@ -210,6 +213,49 @@
 	.table-scroll .status small {
 		margin-top: 0.1em;
 		font-weight: 400;
+	}
+
+	/* 表格裡的 inline code 可在任意處折行。長設定值（例如
+	   orchestrator.start_problem(max_steps=30)）中間沒有斷行點，會把整欄撐寬，
+	   手機上每一列的右半邊都被切掉。 */
+	.table-scroll td code {
+		overflow-wrap: anywhere;
+	}
+
+	/* 以下兩個是選用樣式：在文章裡用 <div class="…"> 包住 Markdown 表格
+	   （div 與表格之間要空一行，表格才會照 Markdown 解析）。 */
+
+	/* table-nowrap：數字表格。儲存格不換行 —— 全形斜線「／」兩側都是斷行點，
+	   不擋的話「135／190」會被拆成兩三行。proportional-width 把全形標點收成
+	   比例寬，九欄的數字表才放得進桌機的版心；手機放不下就在 .table-scroll
+	   裡整張橫向捲動。
+	   表頭用 keep-all，只在空格處換行：欄位一多表格就縮到最窄，中文表頭會被
+	   拆成一行一個字（「被／攔／合／計」）。欄間留白在 tailwind.config.ts。 */
+	.table-nowrap td {
+		white-space: nowrap;
+		font-variant-east-asian: proportional-width;
+	}
+	.table-nowrap th {
+		word-break: keep-all;
+	}
+
+	/* table-break-first：第一欄是長識別字（例如 syntax_fail_then_supported），
+	   可在任意處折行，窄螢幕才不會把後面的欄位擠出畫面。跟上面 PR 表格的
+	   Title 欄同一個做法，只套單一欄。 */
+	.table-break-first td:first-child {
+		overflow-wrap: anywhere;
+	}
+
+	/* 行間公式的容器（文章裡直接寫 MathML，不另外掛 KaTeX）。MathML 不會在
+	   公式裡自動斷行，窄螢幕放不下時就在這層橫向捲動，不把整頁撐寬；標記上
+	   跟表格一樣要有 tabindex="0"，鍵盤才捲得動。
+	   公式用 displaystyle 的行內 <math>，不用 display="block"：區塊公式由
+	   瀏覽器置中，比容器寬時左半邊會被推出捲動範圍；行內內容溢出時則改為
+	   靠起始邊對齊，整條公式都捲得到。
+	   overflow-y 要明寫 hidden：只寫 overflow-x 的話 y 軸會跟著變成 auto，
+	   <math> 比行框多出的 1px 就會長出一條直向捲軸（py-1 已留足空間，不會裁到字）。 */
+	.math-display {
+		@apply my-4 max-w-full overflow-x-auto overflow-y-hidden py-1 text-center;
 	}
 }
 

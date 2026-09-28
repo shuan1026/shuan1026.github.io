@@ -89,6 +89,15 @@ export default {
 						'th[align="left"], td[align="left"]': {
 							"text-align": "left",
 						},
+						// 數字表格（global.css 的 .table-nowrap）欄位多又窄：欄間留白從 8px
+						// 收到 6px，十二欄的表才放得進版心。首尾欄照一般表格貼齊版心。
+						// 跟上面的 td 一樣要寫在這裡，寫在 global.css 會被 prose 蓋掉。
+						".table-nowrap :is(th, td):not(:first-child)": {
+							paddingInlineStart: "calc(var(--spacing)*1.5)",
+						},
+						".table-nowrap :is(th, td):not(:last-child)": {
+							paddingInlineEnd: "calc(var(--spacing)*1.5)",
+						},
 						".expressive-code, .admonition, .github-card": {
 							marginTop: "calc(var(--spacing)*4)",
 							marginBottom: "calc(var(--spacing)*4)",
