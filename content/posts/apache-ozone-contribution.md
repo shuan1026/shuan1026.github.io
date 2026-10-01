@@ -2,10 +2,11 @@
 title: "apache ozone contribution"
 description: "Apache Ozone 及其周邊專案（ozone-site、ozone-helm-charts）的貢獻紀錄，含已合併與進行中的 PR。"
 publishDate: "2026-09-06T00:00:00+08:00"
+updatedDate: "2026-10-01T00:00:00+08:00"
 tags: ["open-source"]
 ---
 
-開源貢獻紀錄，更新於 2026-09-06。這裡只列 Apache Ozone 相關的貢獻。
+開源貢獻紀錄，更新於 2026-10-01。這裡只列 Apache Ozone 相關的貢獻。
 
 ## Merged
 
@@ -13,6 +14,18 @@ tags: ["open-source"]
 
 | Repo | PR | Title | 狀態 |
 | --- | --- | --- | --- |
+| apache/ozone-site | [#535](https://github.com/apache/ozone-site/pull/535) | **HDDS-16237. Chinese versioned docs are missing all local images in vendored HTML pages**<br><small>修正中文版文件的 HTML 頁面遺失所有本地圖片。</small> | <span class="status">✅ Merged<br><small>2026-09-30</small></span> |
+| apache/ozone-site | [#541](https://github.com/apache/ozone-site/pull/541) | **HDDS-15790. Add AGENTS.md and CLAUDE.md**<br><small>為官網倉庫補上 AGENTS.md 與 CLAUDE.md。</small> | <span class="status">✅ Merged<br><small>2026-09-30</small></span> |
+| apache/ozone | [#11327](https://github.com/apache/ozone/pull/11327) | **HDDS-16604. S3 DeleteObjects returns 200 when OM rejects the whole batch**<br><small>OM 拒絕整批刪除時，改回傳對應的 S3 錯誤，不再誤回 200。</small> | <span class="status">✅ Merged<br><small>2026-09-26</small></span> |
+| apache/ozone-helm-charts | [#42](https://github.com/apache/ozone-helm-charts/pull/42) | **HDDS-14349. Adding startupProbe for helm HA deployments**<br><small>為 HA 部署加上 startupProbe。</small> | <span class="status">✅ Merged<br><small>2026-09-25</small></span> |
+| apache/ozone | [#10873](https://github.com/apache/ozone/pull/10873) | **HDDS-15913. Extract common Kerberos/MiniKDC setup from serveral tests**<br><small>抽出多個測試共用的 Kerberos/MiniKDC 設定。</small> | <span class="status">✅ Merged<br><small>2026-09-24</small></span> |
+| apache/ozone | [#11029](https://github.com/apache/ozone/pull/11029) | **HDDS-11646. Intermittent timeout in TestXceiverClientMetrics**<br><small>修正 TestXceiverClientMetrics 的間歇性逾時。</small> | <span class="status">✅ Merged<br><small>2026-09-21</small></span> |
+| apache/ozone | [#11193](https://github.com/apache/ozone/pull/11193) | **HDDS-16374. Use the datanode-specific block deletion interval during reconfiguration**<br><small>重新配置時改用 datanode 專屬的區塊刪除間隔。</small> | <span class="status">✅ Merged<br><small>2026-09-19</small></span> |
+| apache/ozone | [#11198](https://github.com/apache/ozone/pull/11198) | **HDDS-16378. Do not write upgrade.complete during upgrade-container-schema --dry-run**<br><small>dry-run 模式不應寫入 upgrade.complete 標記。</small> | <span class="status">✅ Merged<br><small>2026-09-18</small></span> |
+| apache/ozone-helm-charts | [#43](https://github.com/apache/ozone-helm-charts/pull/43) | **HDDS-15874. Adding readinessProbe for helm HA deployments**<br><small>為 HA 部署加上 readinessProbe。</small> | <span class="status">✅ Merged<br><small>2026-09-15</small></span> |
+| apache/ozone-helm-charts | [#53](https://github.com/apache/ozone-helm-charts/pull/53) | **HDDS-15993. Unused values in ozone helm chart values.yaml**<br><small>清理 values.yaml 中未被使用的設定值。</small> | <span class="status">✅ Merged<br><small>2026-09-15</small></span> |
+| apache/ozone | [#11202](https://github.com/apache/ozone/pull/11202) | **HDDS-16135. Fix remaining intermittent failures in TestKeyLifecycleService**<br><small>修正 TestKeyLifecycleService 殘餘的間歇性失敗。</small> | <span class="status">✅ Merged<br><small>2026-09-12</small></span> |
+| apache/ozone | [#11160](https://github.com/apache/ozone/pull/11160) | **HDDS-16336. S3 GET inverted Range with start inside object yields negative Content-Length**<br><small>修正反向 Range 請求造成 Content-Length 為負數。</small> | <span class="status">✅ Merged<br><small>2026-09-08</small></span> |
 | apache/ozone | [#11191](https://github.com/apache/ozone/pull/11191) | **HDDS-16373. Fix InterSCMGrpcClient checkpoint download deadline unit**<br><small>修正 SCM 之間下載 checkpoint 的逾時時間單位錯誤。</small> | <span class="status">✅ Merged<br><small>2026-09-02</small></span> |
 | apache/ozone-site | [#540](https://github.com/apache/ozone-site/pull/540) | **HDDS-16157. Add security issue report process**<br><small>官網補上資安問題的回報流程說明。</small> | <span class="status">✅ Merged<br><small>2026-09-02</small></span> |
 | apache/ozone | [#11115](https://github.com/apache/ozone/pull/11115) | **HDDS-16256. Avoid the per-group list copy in OMKeyRequest.filterOutBlocksStillInUse**<br><small>移除逐組的 list 複製，降低刪除路徑的記憶體配置。</small> | <span class="status">✅ Merged<br><small>2026-08-31</small></span> |
@@ -38,18 +51,7 @@ tags: ["open-source"]
 
 | Repo | PR | Title | 狀態 |
 | --- | --- | --- | --- |
-| apache/ozone | [#11202](https://github.com/apache/ozone/pull/11202) | **HDDS-16135. Fix remaining intermittent failures in TestKeyLifecycleService**<br><small>修正 TestKeyLifecycleService 殘餘的間歇性失敗。</small> | <span class="status">⏳ Open<br><small>2026-09-04</small></span> |
-| apache/ozone | [#11198](https://github.com/apache/ozone/pull/11198) | **HDDS-16378. Do not write upgrade.complete during upgrade-container-schema --dry-run**<br><small>dry-run 模式下不應寫入 upgrade.complete 標記。</small> | <span class="status">⏳ Open<br><small>2026-09-03</small></span> |
-| apache/ozone | [#11193](https://github.com/apache/ozone/pull/11193) | **HDDS-16374. Use the datanode-specific block deletion interval during reconfiguration**<br><small>重新配置時改用 datanode 專屬的區塊刪除間隔。</small> | <span class="status">⏳ Open<br><small>2026-09-02</small></span> |
-| apache/ozone | [#11183](https://github.com/apache/ozone/pull/11183) | **HDDS-16338. Fix no-op table size assertions in TestHSync**<br><small>修正 TestHSync 中沒有實際驗證效果的表格大小斷言。</small> | <span class="status">⏳ Open<br><small>2026-09-01</small></span> |
-| apache/ozone | [#11160](https://github.com/apache/ozone/pull/11160) | **HDDS-16336. S3 GET inverted Range with start inside object yields negative Content-Length**<br><small>修正反向 Range 請求導致 Content-Length 為負數。</small> | <span class="status">⏳ Open<br><small>2026-08-30</small></span> |
-| apache/ozone-site | [#541](https://github.com/apache/ozone-site/pull/541) | **HDDS-15790. Add AGENTS.md and CLAUDE.md**<br><small>為官網原始碼庫補上 AGENTS.md 與 CLAUDE.md。</small> | <span class="status">⏳ Open<br><small>2026-08-25</small></span> |
+| apache/ozone | [#11329](https://github.com/apache/ozone/pull/11329) | **HDDS-16610. Fix flaky TestKeyDeletingService\$Metrics#testLastRunAnd24hMetrics**<br><small>修正 KeyDeletingService 指標測試的不穩定。</small> | <span class="status">⏳ Open<br><small>2026-09-26</small></span> |
 | apache/ozone | [#11100](https://github.com/apache/ozone/pull/11100) | **HDDS-16255. Avoid the per-group list copy in ContainerMapper.parseOmDB**<br><small>移除 parseOmDB 的逐組 list 複製。</small> | <span class="status">⏳ Open<br><small>2026-08-24</small></span> |
 | apache/ozone | [#11090](https://github.com/apache/ozone/pull/11090) | **HDDS-16253. Fix getPipelines() in Recon always returning an empty pipeline list**<br><small>修正 Recon 的 getPipelines() 永遠回傳空清單。</small> | <span class="status">⏳ Open<br><small>2026-08-22</small></span> |
-| apache/ozone-site | [#535](https://github.com/apache/ozone-site/pull/535) | **HDDS-16237. Chinese versioned docs are missing all local images in vendored HTML pages**<br><small>修正中文版文件的 HTML 頁面遺失所有本地圖片。</small> | <span class="status">⏳ Open<br><small>2026-08-20</small></span> |
-| apache/ozone | [#11029](https://github.com/apache/ozone/pull/11029) | **HDDS-11646. Intermittent timeout in TestXceiverClientMetrics**<br><small>修正 TestXceiverClientMetrics 的間歇性逾時。</small> | <span class="status">⏳ Open<br><small>2026-08-16</small></span> |
 | apache/ozone-helm-charts | [#56](https://github.com/apache/ozone-helm-charts/pull/56) | **HDDS-16172. Fix OM scale-up by moving bootstrap into the om container**<br><small>將 bootstrap 移入 om container 以修正 OM 擴容。</small> | <span class="status">⏳ Open<br><small>2026-08-15</small></span> |
-| apache/ozone-helm-charts | [#53](https://github.com/apache/ozone-helm-charts/pull/53) | **HDDS-15993. Unused values in ozone helm chart values.yaml**<br><small>清理 values.yaml 中未被使用的設定值。</small> | <span class="status">⏳ Open<br><small>2026-07-29</small></span> |
-| apache/ozone | [#10873](https://github.com/apache/ozone/pull/10873) | **HDDS-15913. Extract common Kerberos/MiniKDC setup from serveral tests**<br><small>抽出多個測試共用的 Kerberos/MiniKDC 設定。</small> | <span class="status">⏳ Open<br><small>2026-07-26</small></span> |
-| apache/ozone-helm-charts | [#43](https://github.com/apache/ozone-helm-charts/pull/43) | **HDDS-15874. Adding readinessProbe for helm HA deployments**<br><small>為 HA 部署加上 readinessProbe。</small> | <span class="status">⏳ Open<br><small>2026-07-16</small></span> |
-| apache/ozone-helm-charts | [#42](https://github.com/apache/ozone-helm-charts/pull/42) | **HDDS-14349. Adding startupProbe for helm HA deployments**<br><small>為 HA 部署加上 startupProbe。</small> | <span class="status">⏳ Open<br><small>2026-07-16</small></span> |
