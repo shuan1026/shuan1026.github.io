@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
 import FormattedDate from "@/components/FormattedDate.astro";
 
 interface Props {
@@ -75,6 +76,25 @@ const {
 					</span>
 				</>
 			))}
+		</div>
+	)
+}
+{
+	/* 放在 Masthead 而不是正文開頭：手機上目錄排在正文前面，寫在正文裡會被擠到目錄下方。
+	   hover 只加底線、不加底色 —— 深色主題的 accent 疊 10% 底色後對比只剩 4.3:1。 */
+	data.pdf && (
+		<div class="mt-4">
+			<a
+				class="border-accent text-accent inline-flex min-h-11 items-center gap-2 rounded-lg border-2 px-4 font-semibold hover:underline hover:underline-offset-2"
+				href={data.pdf}
+				rel="noreferrer"
+				target="_blank"
+			>
+				<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name="mdi:file-pdf-box" />
+				PDF 版本
+				<Icon aria-hidden="true" class="h-4 w-4" focusable="false" name="mdi:open-in-new" />
+				<span class="sr-only">（另開新分頁）</span>
+			</a>
 		</div>
 	)
 }

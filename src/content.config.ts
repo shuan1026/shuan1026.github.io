@@ -25,6 +25,8 @@ const post = defineCollection({
 				.optional(),
 			draft: z.boolean().default(false),
 			ogImage: z.string().optional(),
+			// 文章的 PDF 版（例如 Google Drive 分享連結）。有填才會在 Masthead 顯示按鈕。
+			pdf: z.url().optional(),
 			tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
 			publishDate: z
 				.string()
