@@ -2,11 +2,11 @@
 title: "apache ozone contribution"
 description: "Apache Ozone 及其周邊專案（ozone-site、ozone-helm-charts）的貢獻紀錄，含已合併與進行中的 PR。"
 publishDate: "2026-09-06T00:00:00+08:00"
-updatedDate: "2026-10-01T00:00:00+08:00"
+updatedDate: "2026-10-12T00:00:00+08:00"
 tags: ["open-source"]
 ---
 
-開源貢獻紀錄，更新於 2026-10-01。這裡只列 Apache Ozone 相關的貢獻。
+開源貢獻紀錄，更新於 2026-10-12。這裡只列 Apache Ozone 相關的貢獻。
 
 ## Merged
 
@@ -14,6 +14,7 @@ tags: ["open-source"]
 
 | Repo | PR | Title | 狀態 |
 | --- | --- | --- | --- |
+| apache/ozone | [#11329](https://github.com/apache/ozone/pull/11329) | **HDDS-16610. Fix flaky TestKeyDeletingService\$Metrics#testLastRunAnd24hMetrics**<br><small>修正 KeyDeletingService 指標測試的不穩定。</small> | <span class="status">✅ Merged<br><small>2026-10-09</small></span> |
 | apache/ozone-site | [#535](https://github.com/apache/ozone-site/pull/535) | **HDDS-16237. Chinese versioned docs are missing all local images in vendored HTML pages**<br><small>修正中文版文件的 HTML 頁面遺失所有本地圖片。</small> | <span class="status">✅ Merged<br><small>2026-09-30</small></span> |
 | apache/ozone-site | [#541](https://github.com/apache/ozone-site/pull/541) | **HDDS-15790. Add AGENTS.md and CLAUDE.md**<br><small>為官網倉庫補上 AGENTS.md 與 CLAUDE.md。</small> | <span class="status">✅ Merged<br><small>2026-09-30</small></span> |
 | apache/ozone | [#11327](https://github.com/apache/ozone/pull/11327) | **HDDS-16604. S3 DeleteObjects returns 200 when OM rejects the whole batch**<br><small>OM 拒絕整批刪除時，改回傳對應的 S3 錯誤，不再誤回 200。</small> | <span class="status">✅ Merged<br><small>2026-09-26</small></span> |
@@ -51,7 +52,8 @@ tags: ["open-source"]
 
 | Repo | PR | Title | 狀態 |
 | --- | --- | --- | --- |
-| apache/ozone | [#11329](https://github.com/apache/ozone/pull/11329) | **HDDS-16610. Fix flaky TestKeyDeletingService\$Metrics#testLastRunAnd24hMetrics**<br><small>修正 KeyDeletingService 指標測試的不穩定。</small> | <span class="status">⏳ Open<br><small>2026-09-26</small></span> |
+| apache/ozone | [#11485](https://github.com/apache/ozone/pull/11485) | **HDDS-13880. Fix flaky TestKeyDeletingService#testSnapshotDeepClean**<br><small>修正測試持有 snapshot DB 讀鎖、與 double-buffer flush 互鎖造成的逾時。</small> | <span class="status">⏳ Open<br><small>2026-10-12</small></span> |
+| apache/ozone | [#11478](https://github.com/apache/ozone/pull/11478) | **HDDS-16909. Pass writeOptions in RocksDatabase.delete(byte[]) and deleteRange**<br><small>delete 與 deleteRange 改傳入設定的 writeOptions，使 sync 設定生效。</small> | <span class="status">⏳ Open<br><small>2026-10-12</small></span> |
 | apache/ozone | [#11100](https://github.com/apache/ozone/pull/11100) | **HDDS-16255. Avoid the per-group list copy in ContainerMapper.parseOmDB**<br><small>移除 parseOmDB 的逐組 list 複製。</small> | <span class="status">⏳ Open<br><small>2026-08-24</small></span> |
 | apache/ozone | [#11090](https://github.com/apache/ozone/pull/11090) | **HDDS-16253. Fix getPipelines() in Recon always returning an empty pipeline list**<br><small>修正 Recon 的 getPipelines() 永遠回傳空清單。</small> | <span class="status">⏳ Open<br><small>2026-08-22</small></span> |
 | apache/ozone-helm-charts | [#56](https://github.com/apache/ozone-helm-charts/pull/56) | **HDDS-16172. Fix OM scale-up by moving bootstrap into the om container**<br><small>將 bootstrap 移入 om container 以修正 OM 擴容。</small> | <span class="status">⏳ Open<br><small>2026-08-15</small></span> |
