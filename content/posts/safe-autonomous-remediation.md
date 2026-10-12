@@ -3,6 +3,7 @@ title: "安全且可驗證的自主修復：以根因引導與安全動作改寫
 description: "研究計劃全文。提出安全且可驗證的自主修復：以安全動作改寫與根因引導的緩解回應現有自主 SRE 系統的兩個限制，在 ITBench、AIOpsLab、OpenRCA 與 InfraBench 上以任務成功率、安全完成率與修復持久性評估，並延伸到 LLM serving 情境。"
 publishDate: "2026-09-28T00:00:00+08:00"
 tags: ["academic"]
+pdf: "https://drive.google.com/file/d/1ijCPbFT_MECHWk-WI0TTiiHrLNFCU9iT/view?usp=sharing"
 ---
 
 <p><strong>研究計劃</strong><br><em class="text-muted" lang="en">Safe and Verifiable Autonomous Remediation: Root-Cause-Guided Mitigation and Safe Action Rewriting for LLM Multi-Agent SRE</em></p>
